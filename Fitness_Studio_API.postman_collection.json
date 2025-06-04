@@ -1,0 +1,272 @@
+{
+  "info": {
+    "name": "Fitness Studio Booking API",
+    "description": "Complete API collection for testing the Fitness Studio Booking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Check if the API is running"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Classes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/classes",
+          "host": ["{{base_url}}"],
+          "path": ["classes"]
+        },
+        "description": "Retrieve all available fitness classes"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Classes with Timezone",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/classes?timezone_str=US/Pacific&upcoming_only=true",
+          "host": ["{{base_url}}"],
+          "path": ["classes"],
+          "query": [
+            {
+              "key": "timezone_str",
+              "value": "US/Pacific"
+            },
+            {
+              "key": "upcoming_only",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Get classes with Pacific timezone display"
+      },
+      "response": []
+    },
+    {
+      "name": "Book a Class",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"class_id\": \"{{class_id}}\",\n  \"client_name\": \"John Doe\",\n  \"client_email\": \"john.doe@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/book",
+          "host": ["{{base_url}}"],
+          "path": ["book"]
+        },
+        "description": "Book a spot in a fitness class"
+      },
+      "response": []
+    },
+    {
+      "name": "Book Class - Duplicate Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"class_id\": \"{{class_id}}\",\n  \"client_name\": \"John Doe\",\n  \"client_email\": \"john.doe@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/book",
+          "host": ["{{base_url}}"],
+          "path": ["book"]
+        },
+        "description": "Test duplicate booking prevention"
+      },
+      "response": []
+    },
+    {
+      "name": "Book Class - Invalid Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"class_id\": \"{{class_id}}\",\n  \"client_name\": \"Jane Smith\",\n  \"client_email\": \"invalid-email\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/book",
+          "host": ["{{base_url}}"],
+          "path": ["book"]
+        },
+        "description": "Test email validation"
+      },
+      "response": []
+    },
+    {
+      "name": "Get User Bookings",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/bookings?email=john.doe@example.com",
+          "host": ["{{base_url}}"],
+          "path": ["bookings"],
+          "query": [
+            {
+              "key": "email",
+              "value": "john.doe@example.com"
+            }
+          ]
+        },
+        "description": "Get all bookings for a specific user"
+      },
+      "response": []
+    },
+    {
+      "name": "Get User Bookings - All Time",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/bookings?email=john.doe@example.com&upcoming_only=false",
+          "host": ["{{base_url}}"],
+          "path": ["bookings"],
+          "query": [
+            {
+              "key": "email",
+              "value": "john.doe@example.com"
+            },
+            {
+              "key": "upcoming_only",
+              "value": "false"
+            }
+          ]
+        },
+        "description": "Get all bookings (past and future) for a user"
+      },
+      "response": []
+    },
+    {
+      "name": "Create New Class",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Evening Pilates\",\n  \"instructor\": \"Sarah Johnson\",\n  \"datetime_str\": \"2025-06-15 18:00\",\n  \"total_slots\": 15,\n  \"timezone_str\": \"Asia/Kolkata\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/classes",
+          "host": ["{{base_url}}"],
+          "path": ["classes"]
+        },
+        "description": "Create a new fitness class (Admin function)"
+      },
+      "response": []
+    },
+    {
+      "name": "Multiple Bookings Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"class_id\": \"{{class_id}}\",\n  \"client_name\": \"Alice Smith\",\n  \"client_email\": \"alice.smith@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/book",
+          "host": ["{{base_url}}"],
+          "path": ["book"]
+        },
+        "description": "Book with different user to test slot reduction"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "description": "Base URL for the API"
+    },
+    {
+      "key": "class_id",
+      "value": "",
+      "description": "Class ID for booking (update this with actual class ID from GET /classes)"
+    }
+  ]
+}
