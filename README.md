@@ -365,7 +365,7 @@ For questions or issues:
 1. Check the interactive API docs at `/docs`
 2. Review the test cases for usage examples
 3. Create an issue in the repository
-4. Contact: your-hittusingh350@gmail.com
+4. Contact: hittusingh350@gmail.com
 
 ---
 
